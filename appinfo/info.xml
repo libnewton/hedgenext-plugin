@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>hedgenext</id>
+    <name>HedgeNext</name>
+    <summary>Unofficial HedgeDoc Nextcloud Integration</summary>
+    <description><![CDATA[Use your Hedgedoc (HedgeNext fork) in your cloud!]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="libnewton@example.com" homepage="https://github.com/libnewton">libnewton</author>
+    <namespace>HedgeNext</namespace>
+    <category>files</category>
+    <types>
+        <filesystem/>
+        <dav/>
+    </types>
+    <category>office</category>
+    <website>https://github.com/libnewton/hedgenext</website>
+    <bugs>https://github.com/libnewton/hedgenext</bugs>
+    <dependencies>
+        <nextcloud min-version="25" max-version="25"/>
+    </dependencies>
+    <repair-steps>
+        <post-migration>
+            <step>OCA\HedgeNext\Migration\AddMimetypeStep</step>
+        </post-migration>
+        <install>
+            <step>OCA\HedgeNext\Migration\AddMimetypeStep</step>
+        </install>
+    </repair-steps>
+    <settings>
+        <admin>OCA\HedgeNext\Settings\Admin</admin>
+    </settings>
+</info>
