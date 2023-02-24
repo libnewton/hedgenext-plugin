@@ -15,6 +15,9 @@ class CryptoStuff {
     public static function encrypt($plaintext, $key) {
         $iv_length = openssl_cipher_iv_length('aes-256-gcm');
         $iv = openssl_random_pseudo_bytes($iv_length);
+        $key = str_replace('_', '=', $key);
+        $key = str_replace('-', '/', $key);
+        $key = str_replace('^', '+', $key);
         $key2 = base64_decode($key);
         $ciphertext = openssl_encrypt($plaintext, 'aes-256-gcm', $key2, OPENSSL_RAW_DATA, $iv, $tag, '', 16);
         $out = base64_encode(json_encode(array('iv' => base64_encode($iv), 'c' => base64_encode($ciphertext), 'tag' => base64_encode($tag))));
@@ -23,6 +26,9 @@ class CryptoStuff {
     
     public static function decrypt($inp, $key) {
         try {
+            $key = str_replace('_', '=', $key);
+            $key = str_replace('-', '/', $key);
+            $key = str_replace('^', '+', $key);
             $key2 = base64_decode($key);
             $inp = json_decode(base64_decode($inp), true);
             $iv = base64_decode($inp['iv']);
