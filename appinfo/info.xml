@@ -3,20 +3,24 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>hedgenext</id>
     <name>HedgeNext</name>
-    <summary>Unofficial HedgeDoc Nextcloud Integration</summary>
-    <description><![CDATA[Use your Hedgedoc (HedgeNext fork) in your cloud!]]></description>
+    <summary>Integration of HedgeNext - a customized HedgeDoc markdown editor fork</summary>
+    <description><![CDATA[  This application is the Nextcloud client of HedgeNext - the Nextcloud-adjusted fork of Hedgedoc, the definitive collaberative markdown editor. ]]></description>
     <version>0.0.1</version>
     <licence>agpl</licence>
-    <author mail="libnewton@example.com" homepage="https://github.com/libnewton">libnewton</author>
+    <author mail="newtonnextcloud@bnd.ovh" homepage="https://github.com/libnewton">libnewton</author>
     <namespace>HedgeNext</namespace>
     <category>files</category>
+    <category>integration</category>
+    <category>office</category>
+    <category>organization</category>
+    <category>social</category>
     <types>
         <filesystem/>
         <dav/>
     </types>
     <category>office</category>
-    <website>https://github.com/libnewton/hedgenext</website>
-    <bugs>https://github.com/libnewton/hedgenext</bugs>
+    <website>https://github.com/libnewton/hedgenext-plugin</website>
+    <bugs>https://github.com/libnewton/hedgenext-plugin/issues</bugs>
     <dependencies>
         <nextcloud min-version="25" max-version="25"/>
     </dependencies>

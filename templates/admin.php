@@ -19,7 +19,5 @@ script('hedgenext', 'settings');
 <div>
 <h4>Internal Secret Key for Hedge: <br></h4><br><p id="clickkey" style="text-decoration: underline;">Click to show</p><code id="hiddenkey" style="display: none;"><?php p($_['hdoc.secretkey']); ?></code>
 </div>
-    <!-- <form id="hdoc-preview"> -->
-
-    <!-- </form> -->
+ 
 </div>
