@@ -1,4 +1,4 @@
 # Nextcloud HedgeDoc
 
-- This requires a special HedgeDoc Server.
-- The required Hedgedoc fork is being published soon, until then, this Nextcloud App will not be published and is of no use.
+- This requires a special HedgeDoc Server, refer to [https://github.com/libnewton/hedgenext-server](https://github.com/libnewton/hedgenext-server) for instructions.
+- More documentation is coming.
