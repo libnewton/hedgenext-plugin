@@ -5,6 +5,7 @@ namespace OCA\HedgeNext\Controller;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\RedirectResponse;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\Constants;
