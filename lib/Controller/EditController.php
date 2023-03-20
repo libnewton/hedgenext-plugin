@@ -166,6 +166,55 @@ class EditController extends Controller {
         $result = Helper::formatFileInfo($fileInfo);
         return $result;
     }
+    /**
+     * Create new file in folder via api
+     *
+     * @param string $name - file name
+     * @param string $dir - folder path
+     * @param string $userid - user id
+     * @param string $auth - hmac of the user id using the secret key
+     *
+     * @return array
+     *
+     * @NoAdminRequired
+     * @PublicPage
+     * @NoCSRFRequired
+     */
+    public function createapi($name, $dir, $userid, $auth) {
+        $this->logger->debug("Create: $name", ["app" => $this->appName]);
+        $hmacValue = hash_hmac("sha256", $userid, $auth);
+        if ($hmacValue !== $auth) {
+            $this->logger->error("Invalid auth: $auth", ["app" => $this->appName]);
+            return ["error" => "Invalid auth"];
+        }
+        $userFolder = $this->root->getUserFolder($userid);
+
+        $folder = $userFolder->get($dir);
+
+        if ($folder === null) {
+            $this->logger->error("Folder not found: $dir", ["app" => $this->appName]);
+            return ["error" => "Folder not found"];
+        }
+        if (!$folder->isCreatable()) {
+            $this->logger->error("Folder without permission: $dir", ["app" => $this->appName]);
+            return ["error" => "Insufficient permissions"];
+        }
+
+        $name = $folder->getNonExistingName($name);
+        $nonce = base64_encode(openssl_random_pseudo_bytes(20));
+        $nonce = str_replace(['+', '/', '='], ['-', '_', '.'], $nonce);
+        try {
+            $file = $folder->newFile($name, "UNSET°VALUE°" . $nonce);
+        } catch (NotPermittedException $e) {
+            $this->logger->logException($e, ["message" => "Can't create file: $name", "app" => $this->appName]);
+            return ["error" => "Can't create file"];
+        }
+
+        $fileInfo = $file->getFileInfo();
+        
+        $result = Helper::formatFileInfo($fileInfo);
+        return $result;
+    }
 
     /**
      * API Get file

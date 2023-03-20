@@ -5,6 +5,7 @@ return [
 		['name' => 'hedge#post', 'url' => '/hedge/post', 'verb' => 'POST'],
 		['name' => 'edit#get', 'url' => '/edit/get', 'verb' => 'GET'],
 		['name' => 'edit#create', 'url' => '/edit/create', 'verb' => 'POST'],
+		['name' => 'edit#createapi', 'url' => '/edit/createapi', 'verb' => 'POST'],
 		['name' => 'settings#post', 'url' => '/settings/post', 'verb' => 'POST'],
 		['name' => 'settings#get', 'url' => '/settings/get', 'verb' => 'GET'],
 		['name' => 'oauth#authorize', 'url' => '/oauth/authorize', 'verb' => 'GET'],
