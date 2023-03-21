@@ -6,6 +6,7 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\Constants;
@@ -216,6 +217,7 @@ class EditController extends Controller {
         $payload_encoded = base64_encode(json_encode(array('fid' => $result['id'], 'path' => $dir . "/" . $name, 'userid' => $userid, 'nonce' => $nonce)));
         $payload_encrypted = urlencode(CryptoStuff::encrypt($payload_encoded, $this->getSecret()));
         $hdocURL = $this->getHedgeURL() . '/new-handoff?handoff=' . $payload_encrypted;
+
 		return new DataResponse(['result' => "success", 'url' => $hdocURL]);
     }
 
