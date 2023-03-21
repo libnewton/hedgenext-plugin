@@ -90,9 +90,9 @@ class EditController extends Controller {
         $this->urlGenerator = $urlGenerator;
         $this->shareManager = $shareManager;
         $this->logger = $logger;
-        
 
-        
+
+
     }
     private function getSecret() {
         return $this->config->getAppValue($this->appName, 'hdoc.secretkey');
@@ -103,9 +103,9 @@ class EditController extends Controller {
 
     /**
      * Get user by share token
-     * 
+     *
      * @param string $shareToken - share token
-     * 
+     *
      * @return string
      */
     private function getUserByShareToken($user, $shareToken) {
@@ -162,7 +162,7 @@ class EditController extends Controller {
         }
 
         $fileInfo = $file->getFileInfo();
-        
+
         $result = Helper::formatFileInfo($fileInfo);
         return $result;
     }
@@ -182,7 +182,7 @@ class EditController extends Controller {
      */
     public function createapi($name, $dir, $userid, $auth) {
         $this->logger->debug("Create: $name", ["app" => $this->appName]);
-        $hmacValue = hash_hmac("sha256", $userid, $auth);
+        $hmacValue = hash_hmac("sha256", $userid, $this->getSecret());
         if ($hmacValue !== $auth) {
             $this->logger->error("Invalid auth: $auth", ["app" => $this->appName]);
             return ["error" => "Invalid auth"];
@@ -211,14 +211,17 @@ class EditController extends Controller {
         }
 
         $fileInfo = $file->getFileInfo();
-        
+
         $result = Helper::formatFileInfo($fileInfo);
-        return $result;
+        $payload_encoded = base64_encode(json_encode(array('fid' => $result['id'], 'path' => $dir . "/" . $name, 'userid' => $userid, 'nonce' => $nonce)));
+        $payload_encrypted = urlencode(CryptoStuff::encrypt($payload_encoded, $this->getSecret()));
+        $hdocURL = $this->getHedgeURL() . '/new-handoff?handoff=' . $payload_encrypted;
+		return new DataResponse(['result' => "success", 'url' => $hdocURL]);
     }
 
     /**
      * API Get file
-     * 
+     *
      * @param string $handoff - file path
      *
      * @return array
@@ -228,7 +231,7 @@ class EditController extends Controller {
      * @PublicPage
      */
     public function get($handoff) {
-        
+
         $payload = json_decode(base64_decode(urldecode($handoff)), true);
         $path = $payload['path'];
         $user_id = $payload['user_id'];
@@ -236,7 +239,7 @@ class EditController extends Controller {
         $contenthash = $payload['contenthash'];
         $nonce = $payload['nonce'];
         $share_token = $payload['share_token'];
-        
+
         $this->logger->debug("Callback GET $fid", ["app" => $this->appName]);
         try {
             $owner = $this->getUserByShareToken($user_id, $share_token);
@@ -253,7 +256,7 @@ class EditController extends Controller {
 
 
         $fileInfo = $file->getFileInfo();
-        
+
         $result = Helper::formatFileInfo($fileInfo);
         $new_fid = $result['id'];
         $new_userid = $user_id;
