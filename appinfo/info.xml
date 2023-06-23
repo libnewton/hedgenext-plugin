@@ -5,7 +5,7 @@
     <name>HedgeNext</name>
     <summary>Integration of HedgeNext - a customized HedgeDoc markdown editor fork</summary>
     <description><![CDATA[  This application is the Nextcloud client of HedgeNext - the Nextcloud-adjusted fork of Hedgedoc, the definitive collaberative markdown editor. ]]></description>
-    <version>0.0.12</version>
+    <version>0.0.13</version>
     <licence>agpl</licence>
     <author mail="newtonnextcloud@bnd.ovh" homepage="https://github.com/libnewton/hedgenext-server">libnewton</author>
     <namespace>HedgeNext</namespace>
@@ -21,7 +21,7 @@
     <website>https://github.com/libnewton/hedgenext-plugin</website>
     <bugs>https://github.com/libnewton/hedgenext-plugin/issues</bugs>
     <dependencies>
-        <nextcloud min-version="25" max-version="26"/>
+        <nextcloud min-version="25" max-version="27"/>
     </dependencies>
     <repair-steps>
         <post-migration>
