@@ -21,7 +21,7 @@
     <website>https://github.com/libnewton/hedgenext-plugin</website>
     <bugs>https://github.com/libnewton/hedgenext-plugin/issues</bugs>
     <dependencies>
-        <nextcloud min-version="25" max-version="27"/>
+        <nextcloud min-version="25" max-version="28"/>
     </dependencies>
     <repair-steps>
         <post-migration>
