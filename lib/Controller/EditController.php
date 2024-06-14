@@ -278,10 +278,10 @@ class EditController extends Controller {
         } catch (NotFoundException $e)  {
             return new JSONResponse("File Not Found", Http::STATUS_NOT_FOUND);
         } catch (NotPermittedException  $e) {
-            $this->logger->logException($e, ["message" => "Download Not permitted: $fileId", "app" => $this->appName]);
+            $this->logger->logException($e, ["message" => "Download Not permitted: $fid", "app" => $this->appName]);
             return new JSONResponse("Internal Server Error", Http::STATUS_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
-            $this->logger->logException($e, ["message" => "Download file error: $fileId", "app" => $this->appName]);
+            $this->logger->logException($e, ["message" => "Download file error: $fid", "app" => $this->appName]);
             return new JSONResponse("Internal Server Error", Http::STATUS_INTERNAL_SERVER_ERROR);
         }
     }
